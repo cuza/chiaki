@@ -67,7 +67,7 @@ class Host
 		std::string psn_account_id = "";
 		// info from regist/settings
 		ChiakiRegist regist = {};
-		ChiakiRegistInfo regist_info = { 0 };
+		ChiakiRegistInfo regist_info = {};
 		std::function<void()> chiaki_regist_event_type_finished_canceled = nullptr;
 		std::function<void()> chiaki_regist_event_type_finished_failed = nullptr;
 		std::function<void()> chiaki_regist_event_type_finished_success = nullptr;
