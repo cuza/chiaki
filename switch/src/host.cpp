@@ -64,36 +64,35 @@ int Host::Wakeup()
 }
 
 int Host::Register(std::string pin){
-	// use pin and accont_id to negociate secrets for session
-	ChiakiRegist regist = {};
-	ChiakiRegistInfo regist_info = { 0 };
-    regist_info.target = (ChiakiTarget)target_value;
-	// convert psn_account_id into uint8_t[CHIAKI_PSN_ACCOUNT_ID_SIZE]
-	// CHIAKI_PSN_ACCOUNT_ID_SIZE == 8
-	size_t psn_account_id_size = sizeof(uint8_t[CHIAKI_PSN_ACCOUNT_ID_SIZE]);
-	// PS4 firmware > 7.0
-	if(system_version >= 7000000){
-		// use AccountID for ps4 > 7.0
-		chiaki_base64_decode(this->psn_account_id.c_str(), this->psn_account_id.length(),
-			regist_info.psn_account_id, &(psn_account_id_size));
-		regist_info.psn_online_id = NULL;
-	} else if( this->system_version < 7000000 && this->system_version > 0) {
-		// use oline ID for ps4 < 7.0
-		regist_info.psn_online_id = this->psn_online_id.c_str();
-		// regist_info.psn_account_id = {0};
-	} else {
-		CHIAKI_LOGE(this->log, "Undefined PS4 system version (please run discover first)");
-	}
-	regist_info.pin = atoi(pin.c_str());
-	regist_info.host = this->host_addr.c_str();
-	regist_info.broadcast = false;
-	CHIAKI_LOGI(this->log, "Registering to host `%s` `%s` with PSN AccountID `%s` pin `%s`",
-		this->host_name.c_str(), this->host_addr.c_str(), psn_account_id.c_str(), pin.c_str());
-	chiaki_regist_start(&regist, this->log, &regist_info, Regist, this);
-	//FIXME poll host->registered
-	sleep(1);
-	chiaki_regist_stop(&regist);
-	chiaki_regist_fini(&regist);
+//	// use pin and accont_id to negociate secrets for session
+//	ChiakiRegist regist = {};
+//	ChiakiRegistInfo regist_info = { 0 };
+//	// convert psn_account_id into uint8_t[CHIAKI_PSN_ACCOUNT_ID_SIZE]
+//	// CHIAKI_PSN_ACCOUNT_ID_SIZE == 8
+//	size_t psn_account_id_size = sizeof(uint8_t[CHIAKI_PSN_ACCOUNT_ID_SIZE]);
+//	// PS4 firmware > 7.0
+//	if(system_version >= 7000000){
+//		// use AccountID for ps4 > 7.0
+//		chiaki_base64_decode(this->psn_account_id.c_str(), this->psn_account_id.length(),
+//			regist_info.psn_account_id, &(psn_account_id_size));
+//		regist_info.psn_online_id = NULL;
+//	} else if( this->system_version < 7000000 && this->system_version > 0) {
+//		// use oline ID for ps4 < 7.0
+//		regist_info.psn_online_id = this->psn_online_id.c_str();
+//		// regist_info.psn_account_id = {0};
+//	} else {
+//		CHIAKI_LOGE(this->log, "Undefined PS4 system version (please run discover first)");
+//	}
+//	regist_info.pin = atoi(pin.c_str());
+//	regist_info.host = this->host_addr.c_str();
+//	regist_info.broadcast = false;
+//	CHIAKI_LOGI(this->log, "Registering to host `%s` `%s` with PSN AccountID `%s` pin `%s`",
+//		this->host_name.c_str(), this->host_addr.c_str(), psn_account_id.c_str(), pin.c_str());
+//	chiaki_regist_start(&regist, this->log, &regist_info, Regist, this);
+//	//FIXME poll host->registered
+//	sleep(1);
+//	chiaki_regist_stop(&regist);
+//	chiaki_regist_fini(&regist);
 	return 0;
 }
 

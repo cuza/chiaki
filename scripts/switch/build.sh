@@ -34,7 +34,7 @@ build_chiaki (){
       # -DCMAKE_FIND_DEBUG_MODE=ON
 
     pushd "${BASEDIR}/${build}"
-      make -j8
+      make -j $(nproc)
     popd
   popd
 }
