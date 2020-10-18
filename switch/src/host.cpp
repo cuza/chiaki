@@ -67,6 +67,7 @@ int Host::Register(std::string pin){
 	// use pin and accont_id to negociate secrets for session
 	ChiakiRegist regist = {};
 	ChiakiRegistInfo regist_info = { 0 };
+    regist_info.target = (ChiakiTarget)target_value;
 	// convert psn_account_id into uint8_t[CHIAKI_PSN_ACCOUNT_ID_SIZE]
 	// CHIAKI_PSN_ACCOUNT_ID_SIZE == 8
 	size_t psn_account_id_size = sizeof(uint8_t[CHIAKI_PSN_ACCOUNT_ID_SIZE]);
