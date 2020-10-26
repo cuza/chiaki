@@ -23,6 +23,7 @@ option(CHIAKI_GUI_ENABLE_QT_GAMEPAD "Use QtGamepad for Input" OFF)
 option(CHIAKI_GUI_ENABLE_SDL_GAMECONTROLLER "Use SDL Gamecontroller for Input" ON)
 option(CHIAKI_CLI_ARGP_STANDALONE "Search for standalone argp lib for CLI" OFF)
 tri_option(CHIAKI_USE_SYSTEM_JERASURE "Use system-provided jerasure instead of submodule" AUTO)
+tri_option(CHIAKI_USE_SYSTEM_NANOPB "Use system-provided nanopb instead of submodule" AUTO)
 
 set(CHIAKI_VERSION_MAJOR 1)
 set(CHIAKI_VERSION_MINOR 3)
@@ -73,6 +74,18 @@ if(CHIAKI_USE_SYSTEM_JERASURE)
 	else()
 		find_package(Jerasure REQUIRED)
 		set(CHIAKI_USE_SYSTEM_JERASURE ON)
+	endif()
+endif()
+
+find_package(PythonInterp 3 REQUIRED) # Make sure nanopb doesn't find Python 2.7 because Python 2 should just die.
+
+if(CHIAKI_USE_SYSTEM_NANOPB)
+	if(CHIAKI_USE_SYSTEM_NANOPB STREQUAL AUTO)
+		find_package(Nanopb QUIET)
+		set(CHIAKI_USE_SYSTEM_NANOPB ${Nanopb_FOUND})
+	else()
+		find_package(Nanopb REQUIRED)
+		set(CHIAKI_USE_SYSTEM_NANOPB ON)
 	endif()
 endif()
 
