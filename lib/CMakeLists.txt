@@ -74,6 +74,7 @@ set(SOURCE_FILES
 		src/opusdecoder.c)
 
 add_subdirectory(protobuf)
+include_directories("${NANOPB_SOURCE_DIR}")
 set_source_files_properties(${CHIAKI_LIB_PROTO_SOURCE_FILES} ${CHIAKI_LIB_PROTO_HEADER_FILES} PROPERTIES GENERATED TRUE)
 include_directories("${CHIAKI_LIB_PROTO_INCLUDE_DIR}")
 
@@ -112,8 +113,8 @@ else()
 	target_link_libraries(chiaki-lib OpenSSL::Crypto)
 endif()
 
-target_link_libraries(chiaki-lib Nanopb::nanopb)
-target_link_libraries(chiaki-lib Jerasure::Jerasure)
+target_link_libraries(chiaki-lib protobuf-nanopb-static)
+target_link_libraries(chiaki-lib jerasure)
 
 if(CHIAKI_LIB_ENABLE_OPUS)
 	target_link_libraries(chiaki-lib ${Opus_LIBRARIES})

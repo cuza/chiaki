@@ -22,12 +22,10 @@ option(CHIAKI_SWITCH_ENABLE_OPENGL "Use OpenGL to render YUV frames" OFF)
 option(CHIAKI_GUI_ENABLE_QT_GAMEPAD "Use QtGamepad for Input" OFF)
 option(CHIAKI_GUI_ENABLE_SDL_GAMECONTROLLER "Use SDL Gamecontroller for Input" ON)
 option(CHIAKI_CLI_ARGP_STANDALONE "Search for standalone argp lib for CLI" OFF)
-tri_option(CHIAKI_USE_SYSTEM_JERASURE "Use system-provided jerasure instead of submodule" AUTO)
-tri_option(CHIAKI_USE_SYSTEM_NANOPB "Use system-provided nanopb instead of submodule" AUTO)
 
 set(CHIAKI_VERSION_MAJOR 1)
-set(CHIAKI_VERSION_MINOR 3)
-set(CHIAKI_VERSION_PATCH 0)
+set(CHIAKI_VERSION_MINOR 2)
+set(CHIAKI_VERSION_PATCH 1)
 set(CHIAKI_VERSION ${CHIAKI_VERSION_MAJOR}.${CHIAKI_VERSION_MINOR}.${CHIAKI_VERSION_PATCH})
 
 set(CPACK_PACKAGE_NAME "chiaki")
@@ -65,28 +63,6 @@ if(CHIAKI_ENABLE_SWITCH)
 	    # use symbolic links to load font ..
 	    add_definitions(-DBOREALIS_RESOURCES="romfs:/")
     endif()
-endif()
-
-if(CHIAKI_USE_SYSTEM_JERASURE)
-	if(CHIAKI_USE_SYSTEM_JERASURE STREQUAL AUTO)
-		find_package(Jerasure QUIET)
-		set(CHIAKI_USE_SYSTEM_JERASURE ${Jerasure_FOUND})
-	else()
-		find_package(Jerasure REQUIRED)
-		set(CHIAKI_USE_SYSTEM_JERASURE ON)
-	endif()
-endif()
-
-find_package(PythonInterp 3 REQUIRED) # Make sure nanopb doesn't find Python 2.7 because Python 2 should just die.
-
-if(CHIAKI_USE_SYSTEM_NANOPB)
-	if(CHIAKI_USE_SYSTEM_NANOPB STREQUAL AUTO)
-		find_package(Nanopb QUIET)
-		set(CHIAKI_USE_SYSTEM_NANOPB ${Nanopb_FOUND})
-	else()
-		find_package(Nanopb REQUIRED)
-		set(CHIAKI_USE_SYSTEM_NANOPB ON)
-	endif()
 endif()
 
 add_subdirectory(third-party)
